@@ -61,6 +61,5 @@ jobs:
           sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
           sudo docker rm -f $(docker ps -qa)
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
-          cd /${{ secrets.PROJECT_NAME }}
           docker-compose up -d
           docker image prune -f
