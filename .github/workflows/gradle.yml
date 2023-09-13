@@ -28,6 +28,12 @@ jobs:
         npm install
         npm run build
 
+    - name: Copy docker-compose.yml to Server
+      run: |
+        scp -i ${{ secrets.EC2_KEY }} docker-compose.yml ${{ secrets.EC2_USERNAME }}@${{ secrets.SERVER_IP }}:/
+      env: 
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_KEY }}
+
     
     - name: Set up JDK 17
       uses: actions/setup-java@v3
@@ -61,6 +67,5 @@ jobs:
           sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
           sudo docker rm -f $(docker ps -qa)
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
+          docker-compose up -d
           docker image prune -f
-
-          sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} --name ${{ secrets.PROJECT_NAME }} -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
