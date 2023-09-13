@@ -64,5 +64,4 @@ jobs:
           docker-compose up -d
           docker image prune -f
 
-          sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
-          --name ${{ secrets.PROJECT_NAME }} -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
+          sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} --name ${{ secrets.PROJECT_NAME }} -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
