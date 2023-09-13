@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    image: codnjs/test
+    container_name: web_container
+    ports:
+      - "8080:8080"
+
+  redis:
+    image: redis
+    container_name: redis_boot
+    hostname: redis
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_boot
+    build:
+      dockerfile: Dockerfile
+      context: rabbitmq
